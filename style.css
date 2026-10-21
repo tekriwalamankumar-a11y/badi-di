@@ -1,0 +1,124 @@
+:root {
+  --bg: #1b1030;
+  --ink: #fff4e0;
+  --gold: #ffc857;
+  --water: #7fd6ff;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+body {
+  background: radial-gradient(circle at 50% 0%, #3a1f63 0%, var(--bg) 60%);
+  color: var(--ink);
+  font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+  min-height: 100vh;
+}
+.hidden { display: none !important; }
+.stage { width: 100%; min-height: 100vh; min-height: 100svh; }
+
+/* Video */
+#videoStage { display: grid; place-items: center; background: #000; position: relative; transition: opacity .6s; }
+#videoStage.fadeout { opacity: 0; }
+#introVideo { display: block; width: 100%; max-height: 100vh; max-height: 100svh; object-fit: contain; }
+#playBtn {
+  position: absolute; padding: 14px 28px; font-size: 1.1rem; border: 0; border-radius: 999px;
+  background: var(--gold); color: #2a1a00; cursor: pointer; min-height: 48px;
+  box-shadow: 0 6px 24px rgba(0,0,0,.35);
+}
+
+/* Main */
+#mainStage {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 26px; padding: 32px 16px 48px; animation: fadeIn .8s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+#photo {
+  width: min(760px, 94vw); height: auto;
+  border-radius: 18px; border: 4px solid var(--gold);
+  box-shadow: 0 10px 40px rgba(0,0,0,.5);
+}
+
+#row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 36px; width: min(760px, 94vw); }
+
+#qualities { display: flex; flex-direction: column; gap: 10px; width: min(360px, 90vw); }
+#qualities label {
+  display: flex; align-items: center; gap: 14px; padding: 12px 16px;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.18);
+  border-radius: 12px; font-size: 1.1rem; cursor: pointer; transition: background .2s, border-color .2s;
+}
+#qualities label:has(input:checked) { background: rgba(255,200,87,.18); border-color: var(--gold); }
+#qualities input { width: 22px; height: 22px; accent-color: var(--gold); cursor: pointer; }
+#qualities input:focus-visible { outline: 3px solid var(--water); outline-offset: 2px; }
+
+/* Jug */
+#jugLink { display: block; width: min(220px, 55vw); position: relative; cursor: default; -webkit-tap-highlight-color: transparent; }
+#jug { width: 100%; height: auto; overflow: visible; display: block; }
+#water { transition: transform 1s cubic-bezier(.4, 0, .2, 1); }
+.wave { animation: slosh 3s linear infinite; }
+@keyframes slosh { from { transform: translateX(0); } to { transform: translateX(-100px); } }
+
+#stream.pouring { animation: pour 1s ease-out forwards; }
+@keyframes pour { 0% { opacity: 0; } 15% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; } }
+
+#jugLink.full { cursor: pointer; animation: shake .35s infinite, glow 1.2s ease-in-out infinite alternate; }
+@keyframes shake {
+  0% { transform: translate(0, 0) rotate(0); }
+  25% { transform: translate(-3px, 1px) rotate(-1.5deg); }
+  50% { transform: translate(3px, -1px) rotate(1.5deg); }
+  75% { transform: translate(-2px, -1px) rotate(-1deg); }
+  100% { transform: translate(0, 0) rotate(0); }
+}
+@keyframes glow {
+  from { filter: drop-shadow(0 0 8px var(--water)); }
+  to   { filter: drop-shadow(0 0 30px var(--gold)) drop-shadow(0 0 14px var(--water)); }
+}
+#jugLink.nudge { animation: shake .3s 1; }
+
+#jugLink.boom #jug { animation: boom .5s ease-out forwards; }
+#jugLink.boom { animation: none; filter: none; }
+@keyframes boom { 0% { transform: scale(1); opacity: 1; } 40% { transform: scale(1.35); opacity: 1; } 100% { transform: scale(1.7); opacity: 0; } }
+
+.particle {
+  position: fixed; width: 12px; height: 12px; border-radius: 50%; pointer-events: none; z-index: 10;
+  animation: fly 1s ease-out forwards;
+}
+@keyframes fly { to { transform: translate(var(--dx), var(--dy)) scale(.2); opacity: 0; } }
+
+#hint { margin: 0; opacity: .75; font-size: .95rem; text-align: center; }
+
+@media (max-width: 640px) {
+  body { min-height: 100vh; min-height: 100svh; }
+
+  #videoStage { min-height: 100vh; min-height: 100svh; }
+  #introVideo { width: 100%; height: 100vh; height: 100svh; }
+  #playBtn {
+    left: 50%; bottom: calc(24px + env(safe-area-inset-bottom));
+    transform: translateX(-50%); width: min(88vw, 340px); padding: 13px 20px;
+    font-size: 1rem; white-space: nowrap;
+  }
+
+  #mainStage {
+    gap: 18px;
+    padding: calc(16px + env(safe-area-inset-top)) 14px calc(24px + env(safe-area-inset-bottom));
+  }
+  #photo {
+    width: 100%; height: min(38svh, 360px); min-height: 180px;
+    object-fit: contain; background: rgba(0,0,0,.18); border-width: 3px;
+    border-radius: 14px;
+  }
+  #row {
+    flex-direction: column; flex-wrap: nowrap; gap: 14px; width: 100%;
+  }
+  #qualities { order: 1; width: 100%; gap: 8px; }
+  #qualities label {
+    min-height: 50px; padding: 10px 13px; gap: 12px;
+    border-radius: 11px; font-size: 1rem; line-height: 1.25;
+  }
+  #qualities input { flex: 0 0 24px; width: 24px; height: 24px; }
+  #jugLink { order: 2; width: min(142px, 38vw); }
+  #hint { max-width: 30ch; font-size: .95rem; line-height: 1.4; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

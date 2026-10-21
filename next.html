@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1b1030">
+  <title>For You</title>
+  <link rel="stylesheet" href="next.css">
+</head>
+<body>
+  <div id="confetti" aria-hidden="true"></div>
+  <main>
+    <h1 id="title" aria-label="Happy Birthday, Di">
+      <span class="word">Happy</span>
+      <span class="word">Birthday</span>
+      <span class="word">Di</span>
+    </h1>
+
+    <button id="musicStart" class="hidden" type="button">▶ Tap to start the slideshow with music</button>
+    <audio id="music" preload="auto"></audio>
+
+    <section id="slideshow" class="hidden" aria-label="Photo memories">
+      <div id="frame">
+        <img id="slideA" class="on" alt="A favorite memory">
+        <img id="slideB" alt="Another favorite memory">
+      </div>
+      <div id="bar" role="progressbar" aria-label="Photo slideshow progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <span id="barFill"></span>
+      </div>
+    </section>
+
+    <section id="videos" aria-label="Birthday wishes"></section>
+  </main>
+
+  <script src="media-list.js"></script>
+  <script src="next.js"></script>
+</body>
+</html>

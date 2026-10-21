@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ek Khaas Insaan</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- STAGE 1: VIDEO -->
+  <section id="videoStage" class="stage">
+    <!-- 🔖 BOOKMARK: VIDEO — put the video file name in script.js (VIDEO_FILE). The file must sit in this same folder. -->
+    <video id="introVideo" playsinline></video>
+    <button id="playBtn" class="hidden" type="button">▶ Tap to begin (sound on)</button>
+  </section>
+
+  <!-- STAGE 2: PHOTO + CHECKBOXES + JUG -->
+  <main id="mainStage" class="stage hidden">
+    <!-- 🔖 BOOKMARK: PHOTO — put the photo link in script.js (PHOTO_URL). -->
+    <img id="photo" alt="Photo">
+
+    <div id="row">
+    <a id="jugLink" href="next.html" aria-label="Jug">
+      <svg id="jug" viewBox="0 -80 200 340" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <clipPath id="jugClip">
+            <path id="jugShape" d="M70 20 L130 20 L130 50 C175 70 180 110 180 150 L180 220 Q180 245 155 245 L45 245 Q20 245 20 220 L20 150 C20 110 25 70 70 50 Z"/>
+          </clipPath>
+          <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#7fd6ff"/>
+            <stop offset="1" stop-color="#1c7fd6"/>
+          </linearGradient>
+        </defs>
+
+        <rect id="stream" x="97" y="-75" width="6" height="0" rx="3" fill="#7fd6ff" opacity="0"/>
+
+        <g clip-path="url(#jugClip)">
+          <g id="water" style="transform: translateY(225px)">
+            <path class="wave" d="M-200 22 Q-175 12 -150 22 T-100 22 T-50 22 T0 22 T50 22 T100 22 T150 22 T200 22 T250 22 T300 22 V500 H-200 Z" fill="url(#waterGrad)"/>
+          </g>
+        </g>
+
+        <use href="#jugShape" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.75)" stroke-width="4"/>
+        <path d="M45 120 C45 100 55 85 72 72" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="5" stroke-linecap="round"/>
+      </svg>
+    </a>
+
+    <form id="qualities" onsubmit="return false">
+      <label><input type="checkbox"><span>Suddh Sanskari</span></label>
+      <label><input type="checkbox"><span>Bhayankar Cute</span></label>
+      <label><input type="checkbox"><span>Ati sundar</span></label>
+      <label><input type="checkbox"><span>Sushil</span></label>
+      <label><input type="checkbox"><span>Sarvgun Sannapann</span></label>
+      <label><input type="checkbox"><span>Ek tareeke se doosri maa</span></label>
+    </form>
+    </div>
+    <p id="hint">Tick every box to fill the jug</p>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
